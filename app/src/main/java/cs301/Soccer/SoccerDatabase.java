@@ -16,16 +16,35 @@ import java.util.*;
  */
 public class SoccerDatabase implements SoccerDB {
 
+    private HashMap<String, SoccerPlayer> hashMap = new HashMap();
+
     /**
      * add a player
      *
      * @see SoccerDB#addPlayer(String, String, int, String)
      */
     @Override
-    public boolean addPlayer(String firstName, String lastName,
-                             int uniformNumber, String teamName) {
-        return false;
+    public boolean addPlayer(String firstName, String lastName, int uniformNumber, String teamName) {
+
+        SoccerPlayer player = new SoccerPlayer(firstName, lastName, uniformNumber, teamName);
+        for(SoccerPlayer value: hashMap.values()){
+            if (value.equals(player)){
+                Log.e(makeNameString(firstName,lastName), "addPlayer: Failed because the player is already in the database.");
+                return false;
+                //Test whether the player is already in the database; if so, return false, because the player is already in the database.
+            }
+        }
+
+        hashMap.put(makeNameString(firstName,lastName), player);
+        Log.e(makeNameString(firstName,lastName), "addPlayer: Added player to database.");
+        return true;
+        //creates a SoccerPlayer object with the appropriate values & puts it into the hash table, and returns true
     }
+
+    public String makeNameString(String first, String last){
+        return first + " ## " + last;
+    }
+
 
     /**
      * remove a player
