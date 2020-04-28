@@ -63,6 +63,9 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            return hashMap.get(makeNameString(firstName,lastName));
+        }
         return null;
     }
 
