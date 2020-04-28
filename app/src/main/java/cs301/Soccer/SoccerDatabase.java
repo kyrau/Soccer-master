@@ -79,6 +79,11 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpGoals(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpGoals();
+            Log.e(makeNameString(firstName,lastName), "number of goals: " + hashMap.get(makeNameString(firstName,lastName)).getGoals());
+            return true;
+        }
         return false;
     }
 
