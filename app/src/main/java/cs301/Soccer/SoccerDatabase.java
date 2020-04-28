@@ -66,8 +66,8 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public SoccerPlayer getPlayer(String firstName, String lastName) {
-        if(hashMap.containsKey(makeNameString(firstName,lastName))){
-            return hashMap.get(makeNameString(firstName,lastName));
+        if (hashMap.containsKey(makeNameString(firstName, lastName))) {
+            return hashMap.get(makeNameString(firstName, lastName));
         }
         return null;
     }
@@ -79,9 +79,9 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpGoals(String firstName, String lastName) {
-        if(hashMap.containsKey(makeNameString(firstName,lastName))){
-            hashMap.get(makeNameString(firstName,lastName)).bumpGoals();
-            Log.e(makeNameString(firstName,lastName), "number of goals: " + hashMap.get(makeNameString(firstName,lastName)).getGoals());
+        if (hashMap.containsKey(makeNameString(firstName, lastName))) {
+            hashMap.get(makeNameString(firstName, lastName)).bumpGoals();
+            Log.e(makeNameString(firstName, lastName), "number of goals: " + hashMap.get(makeNameString(firstName, lastName)).getGoals());
             return true;
         }
         return false;
@@ -94,6 +94,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpAssists(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpAssists();
+            return true;
+        }
         return false;
     }
 
@@ -104,6 +108,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpShots(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpShots();
+            return true;
+        }
         return false;
     }
 
@@ -114,6 +122,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpSaves(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpSaves();
+            return true;
+        }
         return false;
     }
 
@@ -124,6 +136,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpFouls(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpFouls();
+            return true;
+        }
         return false;
     }
 
@@ -134,6 +150,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpYellowCards(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpYellowCards();
+            return true;
+        }
         return false;
     }
 
@@ -144,6 +164,10 @@ public class SoccerDatabase implements SoccerDB {
      */
     @Override
     public boolean bumpRedCards(String firstName, String lastName) {
+        if(hashMap.containsKey(makeNameString(firstName,lastName))){
+            hashMap.get(makeNameString(firstName,lastName)).bumpRedCards();
+            return true;
+        }
         return false;
     }
 
@@ -155,8 +179,18 @@ public class SoccerDatabase implements SoccerDB {
     @Override
     // report number of players on a given team (or all players, if null)
     public int numPlayers(String teamName) {
-        return -1;
+        int toReturn = 0;
+        if (teamName == null) {
+            return hashMap.size();
+        }
+        for (SoccerPlayer value : hashMap.values()) {
+            if (value.getTeamName().equalsIgnoreCase(teamName)) {
+                toReturn++;
+            }
+        }
+        return toReturn;
     }
+
 
     /**
      * gives the nth player on a the given team
