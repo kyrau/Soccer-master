@@ -200,6 +200,22 @@ public class SoccerDatabase implements SoccerDB {
     // get the nTH player
     @Override
     public SoccerPlayer playerNum(int idx, String teamName) {
+        int num = idx;
+        if (teamName == null){
+            for(SoccerPlayer value: hashMap.values()){
+                if (num == 0){
+                    return value;
+                } else num--;
+            }
+        }
+        for(SoccerPlayer value: hashMap.values()){
+            if (num == 0 && value.getTeamName().equalsIgnoreCase(teamName)){
+                return value;
+            }
+            if (value.getTeamName().equalsIgnoreCase(teamName)){
+                num--;
+            }
+        }
         return null;
     }
 
